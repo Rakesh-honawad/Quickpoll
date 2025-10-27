@@ -51,3 +51,34 @@ QuickPoll/
 git clone https://github.com/Rakesh-honawad/Quickpoll.git
 cd Quickpoll
 ```
+### 🧩 2. Backend Setup (FastAPI)
+## Install Dependencies
+```bash
+cd backend
+pip install -r requirements.txt
+```
+## Run the Server
+```bash
+uvicorn main:app --reload
+```
+
+### 💻 3. Frontend Setup (Next.js)
+## Install Dependencies
+```bash
+cd frontend
+npm install
+```
+
+## Add Environment Variable
+
+Create a file named .env.local inside the frontend directory and add:
+```bash
+NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
+```
+## Run the Frontend
+```bash
+npm run dev
+```
+
+
+### ➡️ App runs on http://localhost:3000
