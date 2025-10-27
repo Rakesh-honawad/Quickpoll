@@ -298,3 +298,15 @@ Below are the planned upgrades to make **QuickPoll** more feature-rich and produ
 - 🧠 **Data Persistence & Analytics** — Track total engagement, poll lifespan, and user participation metrics.
 
 ---
+
+
+## 👤 Author
+
+**Rakesh Honawad**  
+💻 *Full Stack Developer — passionate about real-time web applications and scalable cloud systems.*
+
+- 🌐 **Portfolio / Projects:** [GitHub - Rakesh-honawad](https://github.com/Rakesh-honawad)  
+- 💬 “Building fast, reliable, and interactive web experiences.”  
+- ✉️ *For collaboration or feedback — feel free to connect via GitHub.*
+
+---
