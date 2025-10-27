@@ -81,6 +81,7 @@ QuickPoll/
 │ └── ...
 └── README.md
 ````
+---  
 ### SYSTEM DESIGN
         ┌────────────────────────────────────────────┐
         │                Frontend (UI)               │
@@ -168,6 +169,7 @@ uvicorn main:app --reload
 ```bash
 👉 http://localhost:8000
 ```
+---
 ### 💻 Step 3: Frontend Setup — Next.js + TypeScript
 🧱 Requirements
 
@@ -185,13 +187,12 @@ cd ../frontend
 ```bash
 npm install
 ```
-#🔐 Environment Setup
+# 🔐 Environment Setup
 
-Create a file named .env.local inside the frontend/ directory and add this line:
+## Create a file named .env.local inside the frontend/ directory and add this line:
 ```bash
 NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
 ```
-
 This connects the frontend to your local FastAPI backend.
 
 # ▶️ Run the Frontend App
@@ -203,10 +204,11 @@ npm run dev
 ````bash
  http://localhost:3000
 ````
-🔁 Live Reload Workflow
-🧩 Component	⚙️ Command	💡 Description
-Backend	uvicorn main:app --reload	Automatically restarts on code changes
-Frontend	npm run dev	Hot reloads UI updates instantly
+---
+### 🔁 Live Reload Workflow
+🧩 Component	       ⚙️ Command	                              💡 Description
+   Backend	          uvicorn main:app --reload             	Automatically restarts on code changes
+   Frontend	          npm run dev	                                Hot reloads UI updates instantly
 
 ### ➡️ App runs on http://localhost:3000
 
@@ -225,6 +227,8 @@ Render will give you a backend URL like:
 ```bash
 https://your-backend-name.onrender.com
 ```
+
+----
 ### 🌐 Frontend Deployment (Vercel)
 
 1. Visit Vercel.com
@@ -238,3 +242,4 @@ Vercel will give you a frontend URL like:
 ```bash
 https://your-frontend-name.vercel.app
 ```
+-----
