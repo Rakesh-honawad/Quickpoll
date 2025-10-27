@@ -31,37 +31,44 @@ export default function Home() {
   };
 
   // ✅ WebSocket + HTTP fallback
-  useEffect(() => {
-    fetchPolls();
+ useEffect(() => {
+  fetchPolls();
 
-    // Generate WS URL dynamically
-    const wsUrl =
-      BACKEND_URL.replace("https://", "wss://").replace("http://", "ws://") +
-      "/ws";
+  // Build the correct WebSocket URL for Render (wss://)
+  const wsUrl =
+    (BACKEND_URL.endsWith("/")
+      ? BACKEND_URL.slice(0, -1)
+      : BACKEND_URL
+    ).replace("https://", "wss://")
+      .replace("http://", "ws://") + "/ws";
 
-    let socket: WebSocket | null = null;
+  console.log("🌐 Connecting to WebSocket:", wsUrl);
 
-    try {
-      socket = new WebSocket(wsUrl);
-      socket.onopen = () => console.log("✅ WebSocket connected");
-      socket.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        if (data.type === "refresh") fetchPolls();
-      };
-      socket.onerror = () => {
-        console.warn("⚠️ WebSocket failed, enabling HTTP fallback...");
-        // Fallback: Poll every 10 seconds
-        setInterval(fetchPolls, 10000);
-      };
-      socket.onclose = () => console.log("❌ WebSocket disconnected");
-      setWs(socket);
-    } catch (err) {
-      console.warn("⚠️ WebSocket connection error, using fallback polling...");
-      setInterval(fetchPolls, 10000);
-    }
+  let socket: WebSocket | null = null;
 
-    return () => socket?.close();
-  }, []);
+  try {
+    socket = new WebSocket(wsUrl);
+
+    socket.onopen = () => console.log("✅ WebSocket connected");
+    socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.type === "refresh") fetchPolls();
+    };
+    socket.onerror = (err) => {
+      console.warn("⚠️ WebSocket connection failed, enabling fallback polling...");
+      setInterval(fetchPolls, 10000); // fallback every 10s
+    };
+    socket.onclose = () => console.log("❌ WebSocket disconnected");
+
+    setWs(socket);
+  } catch (error) {
+    console.error("Error initializing WebSocket:", error);
+    setInterval(fetchPolls, 10000); // fallback if even init fails
+  }
+
+  return () => socket?.close();
+}, []);
+
 
   // Vote
   const handleVote = async (pollId: string, index: number) => {
