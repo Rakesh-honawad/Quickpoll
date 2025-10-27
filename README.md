@@ -82,48 +82,131 @@ QuickPoll/
 └── README.md
 ````
 ### SYSTEM DESIGN
-![Uploading image.png…]()
+        ┌────────────────────────────────────────────┐
+        │                Frontend (UI)               │
+        │────────────────────────────────────────────│
+        │ Next.js 14 + TypeScript + Tailwind CSS     │
+        │ - Displays polls and handles user actions  │
+        │ - Connects via REST & WebSocket            │
+        └───────────────▲────────────────────────────┘
+                        │  HTTPS / WSS
+                        │
+        ┌───────────────┴────────────────────────────┐
+        │             Backend (FastAPI)              │
+        │────────────────────────────────────────────│
+        │ - Exposes REST endpoints (/polls, /vote)   │
+        │ - Manages WebSocket connections (/ws)      │
+        │ - Handles real-time broadcasting           │
+        │ - Stores data in-memory (demo)             │
+        └───────────────▲────────────────────────────┘
+                        │
+                        │  Database Layer
+                        │
+        ┌───────────────┴────────────────────────────┐
+        │              Storage (Future)              │
+        │────────────────────────────────────────────│
+        │ PostgreSQL / MongoDB (planned integration) │
+        │ - Persistent poll & comment data           │
+        └────────────────────────────────────────────┘
+
+
+                 🌍 Deployment Overview
+                 ┌────────────────────────────┐
+                 │ Vercel → Frontend Hosting │
+                 │ Render → FastAPI Backend  │
+                 └────────────────────────────┘
+
 
 
 ---
+### ⚙️ Local Setup Guide
 
-## ⚙️ Local Setup
+Follow these steps to run QuickPoll locally on your system.
 
-### 🖥️ 1. Clone the Repository
-
+🧩 Step 1: Clone the Repository
+# Clone the repository from GitHub
 ```bash
-git clone https://github.com/Rakesh-honawad/Quickpoll.git
+git clone https://github.com/Rakesh-honawad/Quickpoll
+```
+# Navigate into the project folder
+```bash
 cd Quickpoll
 ```
-### 🧩 2. Backend Setup (FastAPI)
-## Install Dependencies
-```bash
+### 🖥️ Step 2: Backend Setup — FastAPI
+🧱 Requirements
+
+Before starting, ensure you have:
+
+🐍 Python 3.9+
+📦 pip (Python package manager)
+⚡ Uvicorn (ASGI server for FastAPI)
+💡 (Optional) Virtual environment to isolate dependencies
+⚙️ Setup Instructions
+# Move into the backend folder
 cd backend
+
+# (Optional) Create and activate virtual environment
+python -m venv venv
+# On Windows
+```bash
+venv\Scripts\activate
+````
+# On macOS/Linux
+```bash
+source venv/bin/activate
+```
+# Install all required dependencies
+```bash
 pip install -r requirements.txt
 ```
-## Run the Server
+### ▶️ Run the Backend Server
 ```bash
 uvicorn main:app --reload
 ```
 
-### 💻 3. Frontend Setup (Next.js)
-## Install Dependencies
+### ✅ Backend is now live at:
 ```bash
-cd frontend
+👉 http://localhost:8000
+```
+### 💻 Step 3: Frontend Setup — Next.js + TypeScript
+🧱 Requirements
+
+Ensure the following are installed:
+
+🧩 Node.js (v18 or higher)
+
+📦 npm or yarn
+
+### ⚙️ Setup Instructions
+# Move into the frontend folder
+cd ../frontend
+
+# Install all frontend dependencies
+```bash
 npm install
 ```
+#🔐 Environment Setup
 
-## Add Environment Variable
-
-Create a file named .env.local inside the frontend directory and add:
+Create a file named .env.local inside the frontend/ directory and add this line:
 ```bash
 NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
 ```
-## Run the Frontend
+
+This connects the frontend to your local FastAPI backend.
+
+# ▶️ Run the Frontend App
 ```bash
 npm run dev
 ```
 
+# ✅ Frontend is now live at:
+````bash
+ http://localhost:3000
+````
+🔁 Live Reload Workflow
+🧩 Component	⚙️ Command	💡 Description
+Backend	uvicorn main:app --reload	Automatically restarts on code changes
+Frontend	npm run dev	Hot reloads UI updates instantly
 
 ### ➡️ App runs on http://localhost:3000
 
