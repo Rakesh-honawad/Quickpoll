@@ -2,7 +2,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const BACKEND_URL = "http://localhost:8000";
+// Use .env value if available, fallback to deployed backend
+const BACKEND_URL =
+  process.env.NEXT_PUBLIC_BACKEND_URL || "https://quickpoll-zdu3.onrender.com";
 
 interface Poll {
   id: string;
@@ -18,30 +20,49 @@ export default function Home() {
   const [ws, setWs] = useState<WebSocket | null>(null);
   const [newComment, setNewComment] = useState<{ [key: string]: string }>({});
 
+  // Fetch all polls
+  const fetchPolls = async () => {
+    try {
+      const res = await axios.get(`${BACKEND_URL}/polls`);
+      setPolls(res.data);
+    } catch (error) {
+      console.error("Error fetching polls:", error);
+    }
+  };
+
+  // Initialize WebSocket and handle live updates
   useEffect(() => {
     fetchPolls();
-    const socket = new WebSocket("ws://localhost:8000/ws");
+
+    // Dynamically choose ws:// for local, wss:// for production
+    const wsUrl =
+      BACKEND_URL.replace("https://", "wss://").replace("http://", "ws://") +
+      "/ws";
+
+    const socket = new WebSocket(wsUrl);
+
+    socket.onopen = () => console.log("✅ WebSocket connected");
     socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.type === "refresh") fetchPolls();
     };
+    socket.onclose = () => console.log("❌ WebSocket disconnected");
+
     setWs(socket);
     return () => socket.close();
   }, []);
 
-  const fetchPolls = async () => {
-    const res = await axios.get(`${BACKEND_URL}/polls`);
-    setPolls(res.data);
-  };
-
+  // Vote for an option
   const handleVote = async (pollId: string, index: number) => {
     await axios.post(`${BACKEND_URL}/polls/${pollId}/vote/${index}`);
   };
 
+  // Like a poll
   const handleLike = async (pollId: string) => {
     await axios.post(`${BACKEND_URL}/polls/${pollId}/like`);
   };
 
+  // Add a comment
   const handleComment = async (pollId: string) => {
     if (!newComment[pollId]?.trim()) return;
     await axios.post(`${BACKEND_URL}/polls/${pollId}/comments`, {
@@ -101,7 +122,10 @@ export default function Home() {
               </h3>
               <div className="space-y-2 mb-3">
                 {poll.comments.map((comment, i) => (
-                  <p key={i} className="text-gray-700 bg-gray-50 px-3 py-2 rounded-lg">
+                  <p
+                    key={i}
+                    className="text-gray-700 bg-gray-50 px-3 py-2 rounded-lg"
+                  >
                     {comment}
                   </p>
                 ))}
