@@ -82,3 +82,32 @@ npm run dev
 
 
 ### ➡️ App runs on http://localhost:3000
+
+## ☁️ Deployment Guide
+
+### 🧠 Backend Deployment (Render)
+
+1. Push your backend code to GitHub.  
+2. Visit [Render.com](https://render.com) → click **New → Web Service**.  
+3. Connect your GitHub repo.  
+4. Set the **Start Command:**
+   ```bash
+   uvicorn main:app --host 0.0.0.0 --port 10000
+5. Click Deploy 🚀
+Render will give you a backend URL like:
+```bash
+https://your-backend-name.onrender.com
+```
+### 🌐 Frontend Deployment (Vercel)
+
+1. Visit Vercel.com
+2. Import your QuickPoll GitHub repository.
+3. In Environment Variables, add:
+```bash
+NEXT_PUBLIC_BACKEND_URL=https://your-backend-name.onrender.com
+```
+4. Click Deploy 🚀
+Vercel will give you a frontend URL like:
+```bash
+https://your-frontend-name.vercel.app
+```
