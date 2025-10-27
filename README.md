@@ -243,3 +243,58 @@ Vercel will give you a frontend URL like:
 https://your-frontend-name.vercel.app
 ```
 -----
+
+### 🧩 1️⃣ Research & Resources Used
+
+## 📚 Research & Resources Used
+
+- [FastAPI Official Docs](https://fastapi.tiangolo.com/) — For backend API and WebSocket implementation  
+- [Next.js 14 Documentation](https://nextjs.org/docs) — App Router, client components, and deployment  
+- [Tailwind CSS](https://tailwindcss.com/docs) — For responsive UI styling  
+- [Render Docs](https://render.com/docs/deploy-fastapi) — For backend deployment setup  
+- [Vercel Docs](https://vercel.com/docs) — For frontend deployment  
+- [WebSocket RFC6455](https://datatracker.ietf.org/doc/html/rfc6455) — Understanding real-time communication protocol
+---- 
+
+### ⚙️ 2️⃣ System Architecture Explanation
+## 🏗️ System Architecture Explained
+
+1. **User creates a poll** → Sent via REST API → Stored in backend memory.  
+2. **Poll is broadcasted** → Backend emits a “refresh” event via WebSocket to all clients.  
+3. **Users vote or like** → Request sent to `/polls/:id/vote` or `/polls/:id/like`.  
+4. **WebSocket** updates all connected clients instantly without refresh.  
+5. **Frontend** re-fetches updated poll data and re-renders the UI.
+----
+
+### 🧠 3️⃣ How It Works (Step-by-Step)
+
+## 🔄 How It Works
+
+1. 👤 User visits homepage → Fetches all polls.  
+2. 📝 User clicks **“Create Poll”** → Adds question + options → Saves via API.  
+3. 🗳️ Other users can **vote** instantly.  
+4. ⚡ Backend broadcasts a **“refresh”** message via WebSocket.  
+5. 💬 Users can **comment** and **like**, all updated live for everyone.
+
+---
+## 🚀 Future Enhancements
+
+The current prototype focuses on core functionality — real-time poll creation and voting.  
+Below are the planned upgrades to make **QuickPoll** more feature-rich and production-ready:
+
+### 🧱 Functional Improvements
+- 🗑️ **Poll Deletion Feature** — Allow users (or admins) to delete their own polls.  
+- 😄 **Emoji Reactions** — Add support for multiple reaction types (👍 ❤️ 😂 😢 😡) instead of a single “like”.  
+- 👎 **Dislike Option** — Introduce an optional “dislike” button for user sentiment balance.  
+- 🔁 **Unvote Capability** — Currently, users can vote multiple times but cannot remove their vote.  
+  → Future update will let users **toggle or revoke their vote** for flexibility.  
+
+### 🎨 UI/UX Enhancements
+- 🌗 **Dark Mode Support** — Add a theme toggle for light and dark modes to enhance accessibility and user comfort.  
+- 🧩 **Responsive Enhancements** — Improve mobile layout for smaller screen interactions.  
+
+### 💾 Backend Enhancements
+- 🗃️ **Database Integration** — Replace in-memory storage with a persistent database like **PostgreSQL** or **MongoDB** to store polls, votes, and comments.  
+- 🧠 **Data Persistence & Analytics** — Track total engagement, poll lifespan, and user participation metrics.
+
+---
