@@ -19,6 +19,9 @@ Users can create polls, vote, like, and comment — and see updates instantly wi
 | **Deployment** | Frontend → [Vercel](https://vercel.com) <br> Backend → [Render](https://render.com) |
 
 ---
+
+### 📁 PROJECT STRUCTURE
+```bash
 QuickPoll/
 ├── backend/
 │ ├── main.py # FastAPI app with REST + WebSocket endpoints
@@ -35,7 +38,7 @@ QuickPoll/
 │ ├── package.json
 │ └── ...
 └── README.md
-
+````
 
 
 ---
