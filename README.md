@@ -289,10 +289,6 @@ Below are the planned upgrades to make **QuickPoll** more feature-rich and produ
 - 🔁 **Unvote Capability** — Currently, users can vote multiple times but cannot remove their vote.  
   → Future update will let users **toggle or revoke their vote** for flexibility.  
 
-### 🎨 UI/UX Enhancements
-- 🌗 **Dark Mode Support** — Add a theme toggle for light and dark modes to enhance accessibility and user comfort.  
-- 🧩 **Responsive Enhancements** — Improve mobile layout for smaller screen interactions.  
-
 ### 💾 Backend Enhancements
 - 🗃️ **Database Integration** — Replace in-memory storage with a persistent database like **PostgreSQL** or **MongoDB** to store polls, votes, and comments.  
 - 🧠 **Data Persistence & Analytics** — Track total engagement, poll lifespan, and user participation metrics.
