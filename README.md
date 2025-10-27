@@ -1,12 +1,54 @@
-# 🗳️ QuickPoll — Real-Time Polling App
+# 🗳️ QuickPoll — Real-Time Polling Platform
 
-A **real-time polling platform** built with **Next.js**, **FastAPI**, and **WebSockets**.  
-Users can create polls, vote, like, and comment — and see updates instantly without refreshing!
+**QuickPoll** is an interactive, real-time opinion polling platform that allows users to:
+- 📝 Create polls with multiple options  
+- 🗳️ Vote instantly and see live updates  
+- ❤️ Like polls to show engagement  
+- 💬 Comment on polls to share opinions  
+- ⚡ Experience live synchronization across all users via WebSockets  
 
-🌐 **Live App:** [https://quickpoll-rakeshapp.vercel.app](https://quickpoll-rakeshapp.vercel.app)  
-🧠 **Backend API:** [https://quickpoll-zdu3.onrender.com](https://quickpoll-zdu3.onrender.com)
+This project demonstrates full-stack integration of **FastAPI (backend)** and **Next.js (frontend)** — built with performance, simplicity, and scalability in mind.
 
 ---
+
+## 🌍 Live Demo
+
+| Service | Link |
+|----------|------|
+| 🧠 **Frontend (Next.js)** | [https://quickpoll-rakeshapp.vercel.app](https://quickpoll-rakeshapp.vercel.app) |
+| ⚙️ **Backend (FastAPI)** | [https://quickpoll-zdu3.onrender.com](https://quickpoll-zdu3.onrender.com) |
+
+---
+
+## ✨ Key Features
+
+✅ **Create Polls** — Add a question and multiple options dynamically.  
+✅ **Vote in Real-Time** — Votes update instantly without page reload.  
+✅ **Like Polls** — Express your opinion with one click.  
+✅ **Comments** — Users can discuss polls with threaded comments.  
+✅ **WebSocket Integration** — Ensures seamless real-time updates across users.  
+✅ **Responsive Design** — Works beautifully across mobile and desktop.  
+✅ **Deployed on Cloud** —  
+- Backend → [Render](https://render.com)  
+- Frontend → [Vercel](https://vercel.com)
+
+---
+
+## 🧰 Tech Stack
+
+| Layer | Technology |
+|-------|-------------|
+| **Frontend** | [Next.js 14 (App Router)](https://nextjs.org/) + [TypeScript](https://www.typescriptlang.org/) + [Tailwind CSS](https://tailwindcss.com/) |
+| **Backend** | [FastAPI](https://fastapi.tiangolo.com/) |
+| **Real-Time** | WebSockets |
+| **Deployment** | Render (Backend) + Vercel (Frontend) |
+| **Database** | In-memory (Demo) → Extendable to PostgreSQL / MongoDB |
+
+---
+
+> 💡 **Goal:**  
+> QuickPoll is designed as a scalable template for live, event-driven web applications — combining simplicity, interactivity, and real-time communication.
+
 
 ## 🚀 Tech Stack
 
