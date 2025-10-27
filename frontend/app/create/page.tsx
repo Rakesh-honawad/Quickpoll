@@ -2,7 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const BACKEND_URL = "http://localhost:8000";
+const BACKEND_URL = "https://quickpoll-zdu3.onrender.com";
 
 export default function CreatePoll() {
   const [question, setQuestion] = useState("");
