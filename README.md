@@ -19,8 +19,6 @@ Users can create polls, vote, like, and comment — and see updates instantly wi
 | **Deployment** | Frontend → [Vercel](https://vercel.com) <br> Backend → [Render](https://render.com) |
 
 ---
-
-## 📁 Project Structure
 QuickPoll/
 ├── backend/
 │ ├── main.py # FastAPI app with REST + WebSocket endpoints
@@ -31,10 +29,13 @@ QuickPoll/
 │ │ ├── page.tsx # Home (poll listing page)
 │ │ ├── create/page.tsx # Poll creation page
 │ │ └── ...
+│ ├── components/ # UI components
+│ ├── utils/ # API and helper logic
 │ ├── .env.local # Backend API environment config
 │ ├── package.json
 │ └── ...
 └── README.md
+
 
 
 ---
