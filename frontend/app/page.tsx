@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-// Use .env value if available, fallback to deployed backend
+// ✅ Use deployed backend URL (Render)
 const BACKEND_URL =
   process.env.NEXT_PUBLIC_BACKEND_URL || "https://quickpoll-zdu3.onrender.com";
 
@@ -30,39 +30,50 @@ export default function Home() {
     }
   };
 
-  // Initialize WebSocket and handle live updates
+  // ✅ WebSocket + HTTP fallback
   useEffect(() => {
     fetchPolls();
 
-    // Dynamically choose ws:// for local, wss:// for production
+    // Generate WS URL dynamically
     const wsUrl =
       BACKEND_URL.replace("https://", "wss://").replace("http://", "ws://") +
       "/ws";
 
-    const socket = new WebSocket(wsUrl);
+    let socket: WebSocket | null = null;
 
-    socket.onopen = () => console.log("✅ WebSocket connected");
-    socket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.type === "refresh") fetchPolls();
-    };
-    socket.onclose = () => console.log("❌ WebSocket disconnected");
+    try {
+      socket = new WebSocket(wsUrl);
+      socket.onopen = () => console.log("✅ WebSocket connected");
+      socket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        if (data.type === "refresh") fetchPolls();
+      };
+      socket.onerror = () => {
+        console.warn("⚠️ WebSocket failed, enabling HTTP fallback...");
+        // Fallback: Poll every 10 seconds
+        setInterval(fetchPolls, 10000);
+      };
+      socket.onclose = () => console.log("❌ WebSocket disconnected");
+      setWs(socket);
+    } catch (err) {
+      console.warn("⚠️ WebSocket connection error, using fallback polling...");
+      setInterval(fetchPolls, 10000);
+    }
 
-    setWs(socket);
-    return () => socket.close();
+    return () => socket?.close();
   }, []);
 
-  // Vote for an option
+  // Vote
   const handleVote = async (pollId: string, index: number) => {
     await axios.post(`${BACKEND_URL}/polls/${pollId}/vote/${index}`);
   };
 
-  // Like a poll
+  // Like
   const handleLike = async (pollId: string) => {
     await axios.post(`${BACKEND_URL}/polls/${pollId}/like`);
   };
 
-  // Add a comment
+  // Comment
   const handleComment = async (pollId: string) => {
     if (!newComment[pollId]?.trim()) return;
     await axios.post(`${BACKEND_URL}/polls/${pollId}/comments`, {
@@ -115,7 +126,7 @@ export default function Home() {
               </button>
             </div>
 
-            {/* Comment Section */}
+            {/* Comments */}
             <div className="border-t pt-4">
               <h3 className="text-sm font-semibold text-gray-700 mb-2">
                 Comments 💬
