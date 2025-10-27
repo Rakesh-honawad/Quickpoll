@@ -81,6 +81,8 @@ QuickPoll/
 │ └── ...
 └── README.md
 ````
+### SYSTEM DESIGN
+![Uploading image.png…]()
 
 
 ---
