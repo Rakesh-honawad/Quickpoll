@@ -40,7 +40,7 @@ export default function Home() {
       ).replace("https://", "wss://")
         .replace("http://", "ws://") + "/ws";
 
-    console.log("🌐 Connecting to WebSocket:", wsUrl);
+    console.log("🌐 Connecting to the WebSocket:", wsUrl);
 
     let socket: WebSocket | null = null;
 
@@ -65,17 +65,17 @@ export default function Home() {
     return () => socket?.close();
   }, []);
 
-  // Vote
+  // Vt
   const handleVote = async (pollId: string, index: number) => {
     await axios.post(`${BACKEND_URL}/polls/${pollId}/vote/${index}`);
   };
 
-  // Like
+  // Lik
   const handleLike = async (pollId: string) => {
     await axios.post(`${BACKEND_URL}/polls/${pollId}/like`);
   };
 
-  // Comment
+  // Comt
   const handleComment = async (pollId: string) => {
     if (!newComment[pollId]?.trim()) return;
     await axios.post(`${BACKEND_URL}/polls/${pollId}/comments`, {
@@ -160,11 +160,11 @@ export default function Home() {
                       [poll.id]: e.target.value,
                     }))
                   }
-                  className="flex-1 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100"
+                  className="flex-1 border border-gray-300 dark:border-gray-500 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100"
                 />
                 <button
                   onClick={() => handleComment(poll.id)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition"
+                  className="bg-blue-600 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition"
                 >
                   Post
                 </button>
